@@ -13,7 +13,7 @@ def say_hello(**payload):
         channel_id = data['channel']
         thread_ts = data['ts']
         user = data['user']
-        bot.parse_message(text=data['text'],user=user,channel=channel_id)
+        bot.parse_message(text=data['text'],user=user,channel=channel_id,ts=thread_ts)
 
 def main():
     slack_token = os.environ["SLACK_API_TOKEN"]
