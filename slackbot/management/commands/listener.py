@@ -1,8 +1,8 @@
-from .models import Team
 import slack
 import time
 from django.core.management.base import BaseCommand
 from django.conf import settings
+from slackbot.models import User
 
 class ShameBot:
 
@@ -44,6 +44,6 @@ def say_hello(**payload):
 class Command(BaseCommand):
     help = 'Starts the bot for the first'
 
-    def start_listening(self):
+    def handle(self, *args, **options):
         rtm_client = slack.RTMClient(token=settings.SLACK_API_TOKEN)
         rtm_client.start()

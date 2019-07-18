@@ -10,6 +10,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-WORKDIR /usr/src/app/bot
+WORKDIR /usr/src/app
 
 CMD ["python", "manage.py", "listener"]
