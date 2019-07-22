@@ -15,13 +15,11 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SLACK_API_TOKEN = os.environ["SLACK_API_TOKEN"]
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2#g(+&igmrw57&ij6r-gzvu8lo7pze78(x)-#ox)#%uo9lf4hy'
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -113,10 +111,34 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+## app specific stuff
+SLACK_API_TOKEN = os.environ["SLACK_API_TOKEN"]
+GUIDE_URL = os.environ["GUIDE_URL"]
+CHANNEL_MEMBER_THRESHOLD = os.environ["CHANNEL_MEMBER_THRESHOLD"]
+REMIND_THRESHOLD = os.environ["REMIND_THRESHOLD"]
+
+# the initial etiquette guidelines to send a user
+INITIAL_TEXT = f''':wave: I'm your friendly slack etiqeutte bot. Since you used `@here` or `@channel` in a channel with more than {CHANNEL_MEMBER_THRESHOLD} members, I'm passing along some guidelines here: {GUIDE_URL}
+Please review the guidelines and consider avoiding the use of `@here` or `@channel` when possible as this can be disruptive or annoying to other employees.
+
+Some examples of when `@channel` is appropriate:
+* Update a project team's channel about a last-minute change in deadlines.
+* Introduce a new employee or cross-functional partner to a channel.
+
+Some examples of when `@here` is appropriate:
+* You're locked out of the office and need help from someone already at work.
+
+Examples of when using these keywords is *not* appropriate:
+* There exists half a leftover sandwich in the kitchen.
+* You brought back some treats from your trip (people can read scrollback for this).
+* Miscellaneous office announcements that are not highly time sensitive (again, people can read the scrollback if interested).
+
+Thanks for reading over this and being considerate. I'll send out another friendly reminder every {REMIND_THRESHOLD} days. Cheers!'''
