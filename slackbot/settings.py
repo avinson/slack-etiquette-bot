@@ -142,3 +142,11 @@ Examples of when using these keywords is *not* appropriate:
 * Miscellaneous office announcements that are not highly time sensitive (again, people can read the scrollback if interested).
 
 Thanks for reading over this and being considerate. I'll send out another friendly reminder every {REMIND_THRESHOLD} days. Cheers!'''
+
+# text to send after a period of REMIND_THRESHOLD days to refresh the user's memory
+REMIND_TEXT = f''':wave: This is a friendly reminder to review the guidelines at {GUIDE_URL} and to consider whether you _really_ need to use an `@here` or `@channel` before posting.
+
+Here's some examples of when using these keywords is *not* appropriate:
+* There exists half a leftover sandwich in the kitchen.
+* You brought back some treats from your trip (people can read scrollback for this).
+* Miscellaneous office announcements that are not highly time sensitive (again, people can read the scrollback if interested).'''

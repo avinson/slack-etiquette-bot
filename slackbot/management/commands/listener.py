@@ -16,11 +16,6 @@ class EtiquetteBot:
 
     def parse_message(self, text, user, channel, ts):
         dt = datetime.utcfromtimestamp(int(float(ts)))
-        if 'Hello' in text:
-            self.web_client.chat_postMessage(
-                channel=channel,
-                text=f"Hi <@{user}>!"
-            )
 
         if '<!here>' in text or '<!channel>' in text:
             first_time = False
