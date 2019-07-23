@@ -75,15 +75,15 @@ WSGI_APPLICATION = 'slackbot.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-if os.environ['MYSQL_ENABLED'] == 'yes':
+if os.environ['EBOT_MYSQL_ENABLED'] == 'yes':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ['MYSQL_DB'],
-            'USER': os.environ['MYSQL_USER'],
-            'PASSWORD': os.environ['MYSQL_PASS'],
-            'HOST': os.environ['MYSQL_HOST'],
-            'PORT': os.environ['MYSQL_PORT'],
+            'NAME': os.environ['EBOT_MYSQL_DB'],
+            'USER': os.environ['EBOT_MYSQL_USER'],
+            'PASSWORD': os.environ['EBOT_MYSQL_PASS'],
+            'HOST': os.environ['EBOT_MYSQL_HOST'],
+            'PORT': os.environ['EBOT_MYSQL_PORT'],
         }
     }
 else:
