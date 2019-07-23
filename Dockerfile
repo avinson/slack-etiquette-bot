@@ -3,7 +3,7 @@ FROM python:3.7-alpine
 
 
 # gcc needed for slackclient
-RUN apk add --no-cache build-base libffi-dev
+RUN apk add --no-cache build-base libffi-dev mariadb-dev
 
 WORKDIR /usr/src/app
 
