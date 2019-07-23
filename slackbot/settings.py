@@ -138,7 +138,7 @@ PRIVATE_NAG_THRESHOLD = os.environ['PRIVATE_NAG_THRESHOLD']
 PUBLIC_NAG_THRESHOLD = os.environ['PUBLIC_NAG_THRESHOLD']
 
 # the initial etiquette guidelines to send a user
-INITIAL_TEXT = f''':wave: I'm your friendly slack etiqeutte bot. Since you used `@here` or `@channel` in a channel with more than {CHANNEL_MEMBER_THRESHOLD} members, I'm passing along some guidelines here: {GUIDE_URL}
+INITIAL_TEXT = f''':wave: I'm your friendly slack etiquette bot. Since you used `@here` or `@channel` in a channel with more than {CHANNEL_MEMBER_THRESHOLD} members, I'm passing along some guidelines here: {GUIDE_URL}
 
 Please review the guidelines and consider avoiding the use of `@here` or `@channel` when possible as this can be disruptive or annoying to other employees.
 
