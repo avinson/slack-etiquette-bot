@@ -124,6 +124,7 @@ SLACK_API_TOKEN = os.environ["SLACK_API_TOKEN"]
 GUIDE_URL = os.environ["GUIDE_URL"]
 CHANNEL_MEMBER_THRESHOLD = os.environ["CHANNEL_MEMBER_THRESHOLD"]
 REMIND_THRESHOLD = os.environ["REMIND_THRESHOLD"]
+#REMIND_THRESHOLD = 0
 
 # the initial etiquette guidelines to send a user
 INITIAL_TEXT = f''':wave: I'm your friendly slack etiqeutte bot. Since you used `@here` or `@channel` in a channel with more than {CHANNEL_MEMBER_THRESHOLD} members, I'm passing along some guidelines here: {GUIDE_URL}
@@ -149,4 +150,6 @@ REMIND_TEXT = f''':wave: This is a friendly reminder to review the guidelines at
 Here's some examples of when using these keywords is *not* appropriate:
 * There exists half a leftover sandwich in the kitchen.
 * You brought back some treats from your trip (people can read scrollback for this).
-* Miscellaneous office announcements that are not highly time sensitive (again, people can read the scrollback if interested).'''
+* Miscellaneous office announcements that are not highly time sensitive (again, people can read the scrollback if interested).
+
+Thanks!'''

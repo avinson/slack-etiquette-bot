@@ -1,4 +1,5 @@
 import logging
+import time
 import slack
 from datetime import datetime
 from django.core.management.base import BaseCommand
@@ -34,10 +35,21 @@ class EtiquetteBot:
                     as_user=True,
                     text=f"Hi <@{user}> " + settings.INITIAL_TEXT
                 )
+            # does the user need reminding?
+            elif int(time.time() - datetime.timestamp(s.last_reminder)) > int(settings.REMIND_THRESHOLD * 86400):
+                #s.last_reminder = str(timezone.now)
+                #s.save()
+                logger.error(f"last_reminder is now {s.last_reminder}")
+                self.web_client.chat_postMessage(
+                    channel=user,
+                    as_user=True,
+                    text=f"Hi <@{user}> " + settings.REMIND_TEXT
+                )
 
             # get the most recent message
             #latest = Message.objects.filter(slackuser=s).order_by('-dt').first()
             #logger.error(f"last is: {latest.dt}")
+            #logger.error(f"cur time minus last reminder is {time.time()} - {datetime.timestamp(s.last_reminder)}: {time.time() - datetime.timestamp(s.last_reminder)}")
 
             # if s.last_reminder > REMIND_THRESHOLD, send settings.REMIND_TEXT
 

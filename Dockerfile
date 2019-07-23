@@ -1,4 +1,4 @@
-FROM python:3-alpine
+FROM python:3.7-alpine
 
 # the etiquette guide to send to users
 ENV GUIDE_URL https://get.slack.help/hc/en-us/articles/202009646-Notify-a-channel-or-workspace
