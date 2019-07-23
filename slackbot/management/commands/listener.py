@@ -40,13 +40,12 @@ class EtiquetteBot:
                     as_user=True,
                     text=f"Hi <@{user}> " + settings.INITIAL_TEXT
                 )
-                logger.info(f"Sent {user} initial text on {dt}")
+                logger.error(f"Sent {user} initial text on {dt}")
 
             # does the user need reminding?
             elif int(time.time() - datetime.timestamp(s.last_reminder)) > int(settings.REMIND_THRESHOLD * 86400):
                 s.last_reminder = timezone.now()
                 s.save()
-                logger.error(f"last_reminder is now {s.last_reminder}")
                 self.web_client.chat_postMessage(
                     channel=user,
                     as_user=True,
@@ -64,7 +63,7 @@ class EtiquetteBot:
                             as_user=True,
                             text=f"Hi <@{user}> :wave: You've used `@here` or `@channel` {abuses} times in the last week. That's a lot! Next time, consider giving your message a few minutes without the tag before tagging a large group (and maybe tag specific people!). :slightly_smiling_face:"
                         )
-                        logger.info(f"Sent {user} public nag on {dt}")
+                        logger.error(f"Sent {user} public nag on {dt}")
             # now check for a private nag
             elif abuses > int(settings.PRIVATE_NAG_THRESHOLD):
                     # only nag once per day
@@ -76,7 +75,7 @@ class EtiquetteBot:
                             as_user=True,
                             text=f"Hi <@{user}> :wave: You've used `@here` or `@channel` {abuses} times in the last week. Please review the guidelines at {settings.GUIDE_URL} and consider giving your message a few minutes without the tag before tagging a large group (and maybe tag specific people!). :slightly_smiling_face:"
                         )
-                        logger.info(f"Sent {user} private nag on {dt}")
+                        logger.error(f"Sent {user} private nag on {dt}")
 
 
 logger = logging.getLogger(__name__)
