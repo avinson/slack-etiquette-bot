@@ -144,6 +144,7 @@ Please review the guidelines and consider avoiding the use of `@here` or `@chann
 
 Here's some examples of when using these keywords is *not appropriate*:
 * There exists leftover food in the kitchen.
+* There will exist food in the kitchen sometime in the future (this is not timely enough to warrant disrupting workflow).
 * You brought back some treats from your trip (thank you for your kindness but people can read scrollback for this).
 * You forgot something of low value in a conference room (again, people can read the scrollback and answer your question eventually).
 
@@ -154,6 +155,7 @@ REMIND_TEXT = f''':wave: This is a friendly reminder after {REMIND_THRESHOLD} da
 
 Here's some examples of when using these keywords is *not* appropriate:
 * There exists leftover food in the kitchen.
+* There will exist food in the kitchen sometime in the future (this is not timely enough to warrant disrupting workflow).
 * You brought back some treats from your trip (thank you for your kindness but people can read scrollback for this).
 * You forgot something of low value in a conference room (again, people can read the scrollback and answer your question eventually).
 
