@@ -22,7 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if os.environ["DJANGO_ENV"] == 'production':
+    DEBUG = False
+else:
+    DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -72,13 +75,24 @@ WSGI_APPLICATION = 'slackbot.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if os.environ['MYSQL_ENABLED'] == 'yes':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ['MYSQL_DB'],
+            'USER': os.environ['MYSQL_USER'],
+            'PASSWORD': os.environ['MYSQL_PASS'],
+            'HOST': os.environ['MYSQL_HOST'],
+            'PORT': os.environ['MYSQL_PORT'],
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 
 # Password validation
@@ -104,13 +118,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_L10N = True
-
+USE_I18N = False
+USE_L10N = False
 USE_TZ = False
 
 
@@ -120,27 +130,21 @@ USE_TZ = False
 STATIC_URL = '/static/'
 
 ## app specific stuff
-SLACK_API_TOKEN = os.environ["SLACK_API_TOKEN"]
-GUIDE_URL = os.environ["GUIDE_URL"]
-CHANNEL_MEMBER_THRESHOLD = os.environ["CHANNEL_MEMBER_THRESHOLD"]
-REMIND_THRESHOLD = os.environ["REMIND_THRESHOLD"]
-#REMIND_THRESHOLD = 0
+SLACK_API_TOKEN = os.environ['SLACK_API_TOKEN']
+GUIDE_URL = os.environ['GUIDE_URL']
+CHANNEL_MEMBER_THRESHOLD = os.environ['CHANNEL_MEMBER_THRESHOLD']
+REMIND_THRESHOLD = os.environ['REMIND_THRESHOLD']
+PRIVATE_NAG_THRESHOLD = os.environ['PRIVATE_NAG_THRESHOLD']
+PUBLIC_NAG_THRESHOLD = os.environ['PUBLIC_NAG_THRESHOLD']
 
 # the initial etiquette guidelines to send a user
 INITIAL_TEXT = f''':wave: I'm your friendly slack etiqeutte bot. Since you used `@here` or `@channel` in a channel with more than {CHANNEL_MEMBER_THRESHOLD} members, I'm passing along some guidelines here: {GUIDE_URL}
 Please review the guidelines and consider avoiding the use of `@here` or `@channel` when possible as this can be disruptive or annoying to other employees.
 
-Some examples of when `@channel` is appropriate:
-* Update a project team's channel about a last-minute change in deadlines.
-* Introduce a new employee or cross-functional partner to a channel.
-
-Some examples of when `@here` is appropriate:
-* You're locked out of the office and need help from someone already at work.
-
-Examples of when using these keywords is *not* appropriate:
-* There exists half a leftover sandwich in the kitchen.
-* You brought back some treats from your trip (people can read scrollback for this).
-* Miscellaneous office announcements that are not highly time sensitive (again, people can read the scrollback if interested).
+Here's some examples of when using these keywords is *not* appropriate:
+* There exists leftover food in the kitchen.
+* You brought back some treats from your trip (thank you for your kindness but people can read scrollback for this).
+* You forgot something of low value in a conference room (again, people can read the scrollback and answer your question eventually).
 
 Thanks for reading over this and being considerate. I'll send out another friendly reminder every {REMIND_THRESHOLD} days. Cheers!'''
 
@@ -148,8 +152,14 @@ Thanks for reading over this and being considerate. I'll send out another friend
 REMIND_TEXT = f''':wave: This is a friendly reminder after {REMIND_THRESHOLD} days to review the guidelines at {GUIDE_URL} and to consider whether you _really_ need to use an `@here` or `@channel` before posting.
 
 Here's some examples of when using these keywords is *not* appropriate:
-* There exists half a leftover sandwich in the kitchen.
-* You brought back some treats from your trip (people can read scrollback for this).
-* Miscellaneous office announcements that are not highly time sensitive (again, people can read the scrollback if interested).
+* There exists leftover food in the kitchen.
+* You brought back some treats from your trip (thank you for your kindness but people can read scrollback for this).
+* You forgot something of low value in a conference room (again, people can read the scrollback and answer your question eventually).
 
 Thanks!'''
+
+# text to DM user after they go over the PRIVATE_NAG_THRESHOLD (abuses per week)
+#PRIVATE_NAG_TEXT =
+
+# text to call out the user in the channel after they go over the PUBLIC_NAG_THRESHOLD (abuses per week)
+#PUBLIC_NAG_TEXT =

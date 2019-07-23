@@ -4,8 +4,8 @@ from django.utils import timezone
 class Slackuser(models.Model):
     username = models.TextField()
     last_reminder = models.DateTimeField(default=timezone.now)
-    last_private_nag = models.DateTimeField(blank=True, null=True)
-    last_public_nag = models.DateTimeField(blank=True, null=True)
+    last_private_nag = models.DateTimeField(default=timezone.now)
+    last_public_nag = models.DateTimeField(default=timezone.now)
 
     class Meta:
         app_label = 'slackbot'

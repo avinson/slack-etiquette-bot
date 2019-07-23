@@ -1,7 +1,7 @@
 import logging
 import time
 import slack
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.core.management.base import BaseCommand
 from django.conf import settings
 from django.utils import timezone
@@ -16,9 +16,8 @@ class EtiquetteBot:
         self.rtm_client = ""
 
     def parse_message(self, text, user, channel, ts):
-        dt = datetime.utcfromtimestamp(int(float(ts)))
-
         if '<!here>' in text or '<!channel>' in text:
+            dt = datetime.utcfromtimestamp(int(float(ts)))
             first_time = False
             if Slackuser.objects.filter(username=user).exists():
                 s = Slackuser.objects.filter(username=user).first()
@@ -29,43 +28,56 @@ class EtiquetteBot:
             m = Message(slackuser=s, text=text, dt=dt, channel=channel)
             m.save()
 
+            last_week = datetime.now() - timedelta(days=7)
+            abuses = Message.objects.filter(slackuser=s, dt__gte=last_week).count()
+
+            #remind_diff = int(time.time() - datetime.timestamp(s.last_reminder))
+            #logger.error(f"remind_diff is {remind_diff}")
+
             if first_time:
                 self.web_client.chat_postMessage(
                     channel=user,
                     as_user=True,
                     text=f"Hi <@{user}> " + settings.INITIAL_TEXT
                 )
+                logger.info(f"Sent {user} initial text on {dt}")
+
             # does the user need reminding?
             elif int(time.time() - datetime.timestamp(s.last_reminder)) > int(settings.REMIND_THRESHOLD * 86400):
-                #s.last_reminder = str(timezone.now)
-                #s.save()
+                s.last_reminder = timezone.now()
+                s.save()
                 logger.error(f"last_reminder is now {s.last_reminder}")
                 self.web_client.chat_postMessage(
                     channel=user,
                     as_user=True,
                     text=f"Hi <@{user}> " + settings.REMIND_TEXT
                 )
+                logger.info(f"Sent {user} reminder on {dt}")
+            # count the number of abuses in the last week
+            elif abuses > settings.PUBLIC_NAG_THRESHOLD:
+                    # only nag once per day
+                    if int(time.time() - datetime.timestamp(s.last_public_nag)) > 86400:
+                        s.last_public_nag = timezone.now()
+                        s.save()
+                        self.web_client.chat_postMessage(
+                            channel=channel,
+                            as_user=True,
+                            text=f"Hi <@{user}> :wave: You've used `@here` or `@channel` {abuses} times in the last week. That's a lot! Next time, consider giving your message a few minutes without the tag before tagging a large group (and maybe tag specific people!). :slightly_smiling_face:"
+                        )
+                        logger.info(f"Sent {user} public nag on {dt}")
+            # now check for a private nag
+            elif abuses > settings.PRIVATE_NAG_THRESHOLD:
+                    # only nag once per day
+                    if int(time.time() - datetime.timestamp(s.last_private_nag)) > 86400:
+                        s.last_private_nag = timezone.now()
+                        s.save()
+                        self.web_client.chat_postMessage(
+                            channel=user,
+                            as_user=True,
+                            text=f"Hi <@{user}> :wave: You've used `@here` or `@channel` {abuses} times in the last week. Please review the guidelines at {settings.GUIDE_URL} and consider giving your message a few minutes without the tag before tagging a large group (and maybe tag specific people!). :slightly_smiling_face:"
+                        )
+                        logger.info(f"Sent {user} private nag on {dt}")
 
-            # get the most recent message
-            #latest = Message.objects.filter(slackuser=s).order_by('-dt').first()
-            #logger.error(f"last is: {latest.dt}")
-            #logger.error(f"cur time minus last reminder is {time.time()} - {datetime.timestamp(s.last_reminder)}: {time.time() - datetime.timestamp(s.last_reminder)}")
-
-            # if s.last_reminder > REMIND_THRESHOLD, send settings.REMIND_TEXT
-
-            # if > PRIVATE_NAG_THRESHOLD for 7 days, channel=user
-            #self.web_client.chat_postMessage(
-            #    channel=user,
-            #    as_user=True,
-            #    text=f"Hi <@{user}> " + settings.PRIVATE_NAG_TEXT
-            #)
-
-            # if > PUBLIC_NAG_THRESHOLD for 7 days, channel=channel
-            #self.web_client.chat_postMessage(
-            #    channel=channel,
-            #    as_user=True,
-            #    text=f"Hi <@{user}> " + settings.PUBLIC_NAG_TEXT
-            #)
 
 logger = logging.getLogger(__name__)
 bot = EtiquetteBot()
