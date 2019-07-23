@@ -139,9 +139,10 @@ PUBLIC_NAG_THRESHOLD = os.environ['PUBLIC_NAG_THRESHOLD']
 
 # the initial etiquette guidelines to send a user
 INITIAL_TEXT = f''':wave: I'm your friendly slack etiqeutte bot. Since you used `@here` or `@channel` in a channel with more than {CHANNEL_MEMBER_THRESHOLD} members, I'm passing along some guidelines here: {GUIDE_URL}
+
 Please review the guidelines and consider avoiding the use of `@here` or `@channel` when possible as this can be disruptive or annoying to other employees.
 
-Here's some examples of when using these keywords is *not* appropriate:
+Here's some examples of when using these keywords is *not appropriate*:
 * There exists leftover food in the kitchen.
 * You brought back some treats from your trip (thank you for your kindness but people can read scrollback for this).
 * You forgot something of low value in a conference room (again, people can read the scrollback and answer your question eventually).

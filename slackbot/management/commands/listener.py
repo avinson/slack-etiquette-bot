@@ -54,7 +54,7 @@ class EtiquetteBot:
                 )
                 logger.info(f"Sent {user} reminder on {dt}")
             # count the number of abuses in the last week
-            elif abuses > settings.PUBLIC_NAG_THRESHOLD:
+            elif abuses > int(settings.PUBLIC_NAG_THRESHOLD):
                     # only nag once per day
                     if int(time.time() - datetime.timestamp(s.last_public_nag)) > 86400:
                         s.last_public_nag = timezone.now()
@@ -66,7 +66,7 @@ class EtiquetteBot:
                         )
                         logger.info(f"Sent {user} public nag on {dt}")
             # now check for a private nag
-            elif abuses > settings.PRIVATE_NAG_THRESHOLD:
+            elif abuses > int(settings.PRIVATE_NAG_THRESHOLD):
                     # only nag once per day
                     if int(time.time() - datetime.timestamp(s.last_private_nag)) > 86400:
                         s.last_private_nag = timezone.now()
