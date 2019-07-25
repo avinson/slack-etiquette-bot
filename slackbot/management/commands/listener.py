@@ -31,17 +31,13 @@ class EtiquetteBot:
             last_week = datetime.now() - timedelta(days=7)
             abuses = Message.objects.filter(slackuser=s, dt__gte=last_week).count()
 
-            #remind_diff = int(time.time() - datetime.timestamp(s.last_reminder))
-            #logger.error(f"remind_diff is {remind_diff}")
-
             if first_time:
                 self.web_client.chat_postMessage(
                     channel=user,
                     as_user=True,
                     text=f"Hi <@{user}> " + settings.INITIAL_TEXT
                 )
-                logger.error(f"Sent {user} initial text on {dt}")
-
+                logger.info(f"Sent {user} initial text on {dt}")
             # does the user need reminding?
             elif int(time.time() - datetime.timestamp(s.last_reminder)) > int(settings.REMIND_THRESHOLD * 86400):
                 s.last_reminder = timezone.now()
@@ -52,19 +48,18 @@ class EtiquetteBot:
                     text=f"Hi <@{user}> " + settings.REMIND_TEXT
                 )
                 logger.info(f"Sent {user} reminder on {dt}")
-            # count the number of abuses in the last week
             elif abuses > int(settings.PUBLIC_NAG_THRESHOLD):
                     # only nag once per day
                     if int(time.time() - datetime.timestamp(s.last_public_nag)) > 86400:
                         s.last_public_nag = timezone.now()
                         s.save()
+                        # with public nag, channel=channel
                         self.web_client.chat_postMessage(
                             channel=channel,
                             as_user=True,
                             text=f"Hi <@{user}> :wave: You've used `@here` or `@channel` {abuses} times in the last week. That's a lot! Next time, consider giving your message a few minutes without the tag before tagging a large group (and maybe tag specific people!). :slightly_smiling_face:"
                         )
-                        logger.error(f"Sent {user} public nag on {dt}")
-            # now check for a private nag
+                        logger.info(f"Sent {user} public nag on {dt}")
             elif abuses > int(settings.PRIVATE_NAG_THRESHOLD):
                     # only nag once per day
                     if int(time.time() - datetime.timestamp(s.last_private_nag)) > 86400:
@@ -73,9 +68,9 @@ class EtiquetteBot:
                         self.web_client.chat_postMessage(
                             channel=user,
                             as_user=True,
-                            text=f"Hi <@{user}> :wave: You've used `@here` or `@channel` {abuses} times in the last week. Please review the guidelines at {settings.GUIDE_URL} and consider giving your message a few minutes without the tag before tagging a large group (and maybe tag specific people!). :slightly_smiling_face:"
+                            text=f"Hi <@{user}> :wave: You've used `@here` or `@channel` {abuses} times in the last week. Please consider giving your message a few minutes without the tag before tagging a large group (and maybe tag specific people!). :slightly_smiling_face:"
                         )
-                        logger.error(f"Sent {user} private nag on {dt}")
+                        logger.info(f"Sent {user} private nag on {dt}")
 
 
 logger = logging.getLogger(__name__)
