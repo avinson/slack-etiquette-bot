@@ -149,10 +149,10 @@ STATIC_URL = '/static/'
 ## app specific stuff
 SLACK_API_TOKEN = os.environ['SLACK_API_TOKEN']
 GUIDE_URL = os.environ['GUIDE_URL']
-CHANNEL_MEMBER_THRESHOLD = os.environ['CHANNEL_MEMBER_THRESHOLD']
-REMIND_THRESHOLD = os.environ['REMIND_THRESHOLD']
-PRIVATE_NAG_THRESHOLD = os.environ['PRIVATE_NAG_THRESHOLD']
-PUBLIC_NAG_THRESHOLD = os.environ['PUBLIC_NAG_THRESHOLD']
+CHANNEL_MEMBER_THRESHOLD = int(os.environ['CHANNEL_MEMBER_THRESHOLD'])
+REMIND_THRESHOLD = int(os.environ['REMIND_THRESHOLD'])
+PRIVATE_NAG_THRESHOLD = int(os.environ['PRIVATE_NAG_THRESHOLD'])
+PUBLIC_NAG_THRESHOLD = int(os.environ['PUBLIC_NAG_THRESHOLD'])
 
 # the initial etiquette guidelines to send a user
 INITIAL_TEXT = f''':wave: I'm your friendly slack etiquette bot. Since you used `@here` or `@channel` in a channel with more than {CHANNEL_MEMBER_THRESHOLD} members, I'm passing along some guidelines here: {GUIDE_URL}
