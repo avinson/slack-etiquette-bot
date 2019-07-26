@@ -170,7 +170,7 @@ Thanks for reading over this and being considerate. I'll send out another friend
 # text to send after a period of REMIND_THRESHOLD days to refresh the user's memory
 REMIND_TEXT = f''':wave: This is a friendly reminder after {REMIND_THRESHOLD} days to review the guidelines at {GUIDE_URL} and to consider whether you _really_ need to use an `@here` or `@channel` before posting.
 
-Here are some examples of when using these keywords is *not* appropriate:
+Here are some examples of when using these keywords is *not appropriate*:
 * There exists leftover food in the kitchen.
 * There will exist food in the kitchen sometime in the future (this is not timely enough to warrant disrupting workflow).
 * You brought back some treats from your trip (thank you for your kindness but people can read scrollback for this).
