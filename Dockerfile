@@ -22,7 +22,7 @@ ENV REMIND_THRESHOLD 30
 # number of uses per week after which a user is sent a DM with a more nagging message to reduce their usage of @here/@channel
 ENV PRIVATE_NAG_THRESHOLD 5
 # number of uses per week after which a user is responded to publicly in the channel, actively shaming them to knock it off
-ENV PUBLIC_NAG_THRESHOLD 10
+ENV PUBLIC_NAG_THRESHOLD 8
 # misc
 ENV DJANGO_ENV development
 ENV EBOT_MYSQL_ENABLED no
