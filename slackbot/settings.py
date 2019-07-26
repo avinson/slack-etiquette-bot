@@ -159,7 +159,7 @@ INITIAL_TEXT = f''':wave: I'm your friendly slack etiquette bot. Since you used 
 
 Please review the guidelines and consider avoiding the use of `@here` or `@channel` when possible as this can be disruptive or annoying to other employees.
 
-Here's some examples of when using these keywords is *not appropriate*:
+Here are some examples of when using these keywords is *not appropriate*:
 * There exists leftover food in the kitchen.
 * There will exist food in the kitchen sometime in the future (this is not timely enough to warrant disrupting workflow).
 * You brought back some treats from your trip (thank you for your kindness but people can read scrollback for this).
