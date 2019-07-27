@@ -20,9 +20,9 @@ ENV CHANNEL_MEMBER_THRESHOLD 20
 # number of days after which to remind the user when they use @channel or @here
 ENV REMIND_THRESHOLD 30
 # number of uses per week after which a user is sent a DM with a more nagging message to reduce their usage of @here/@channel
-ENV PRIVATE_NAG_THRESHOLD 5
+ENV PRIVATE_NAG_THRESHOLD 6
 # number of uses per week after which a user is responded to publicly in the channel, actively shaming them to knock it off
-ENV PUBLIC_NAG_THRESHOLD 8
+ENV PUBLIC_NAG_THRESHOLD 10
 # misc
 ENV DJANGO_ENV development
 ENV EBOT_MYSQL_ENABLED no
