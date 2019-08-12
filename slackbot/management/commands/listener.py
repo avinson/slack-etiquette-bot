@@ -57,7 +57,7 @@ class EtiquetteBot:
                         self.web_client.chat_postMessage(
                             channel=channel,
                             as_user=True,
-                            text=f"Hi <@{user}> :wave: You've used `@here` or `@channel` {abuses} times in the last week. That's a lot! Next time, consider giving your message a few minutes without the tag before tagging a large group (and maybe tag specific people!). :slightly_smiling_face:"
+                            text=f"Hi <@{user}> :wave: You've used `@here` or `@channel` {abuses} times in the last week. That's a lot! Next time, consider giving your message a few minutes without the tag before tagging a large group (and maybe tag specific people). :slightly_smiling_face:"
                         )
                         logger.info(f"Sent {user} public nag on {dt}")
             elif abuses >= int(settings.PRIVATE_NAG_THRESHOLD):
@@ -68,7 +68,7 @@ class EtiquetteBot:
                         self.web_client.chat_postMessage(
                             channel=user,
                             as_user=True,
-                            text=f"Hi <@{user}> :wave: You've used `@here` or `@channel` {abuses} times in the last week. Please consider giving your message a few minutes without the tag before tagging a large group (and maybe tag specific people!). :slightly_smiling_face:"
+                            text=f"Hi <@{user}> :wave: You've used `@here` or `@channel` {abuses} times in the last week. Please consider giving your message a few minutes without the tag before tagging a large group (and maybe tag specific people). :slightly_smiling_face:"
                         )
                         logger.info(f"Sent {user} private nag on {dt}")
 
