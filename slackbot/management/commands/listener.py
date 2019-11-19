@@ -39,7 +39,7 @@ class EtiquetteBot:
                 )
                 logger.info(f"Sent {user} initial text on {dt}")
             # does the user need reminding?
-            elif int(time.time() - datetime.timestamp(s.last_reminder)) > int(settings.REMIND_THRESHOLD * 86400):
+            elif int(time.time() - datetime.timestamp(s.last_reminder)) > int(settings.REMIND_THRESHOLD) * 86400:
                 s.last_reminder = timezone.now()
                 s.save()
                 self.web_client.chat_postMessage(
