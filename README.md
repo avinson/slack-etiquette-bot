@@ -19,7 +19,7 @@ Slack bot to reduce abuse of `@here`s and `@channel`s at your company. Edit `sla
 * `EBOT_MYSQL_USER`
 
 ### Required
-* SLACK_API_TOKEN
+* `SLACK_API_TOKEN`
 
 
 ## Usage
