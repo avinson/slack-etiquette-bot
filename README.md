@@ -4,6 +4,21 @@
 
 Slack bot to reduce abuse of `@here`s and `@channel`s at your company. Edit `slackbot/settings.py` to adjust the messages that are sent. This may eventually be moved to environment variables.
 
+### Initial Message
+
+The bot initially messages a user with the following, send reminders every day and finally begins first privately and then publicly (in the channel where the abuse occurs) shaming the user for abuse:
+
+:wave: I'm your friendly slack etiquette bot. Since you used `@here` or `@channel` in a channel with more than 20 members, I'm passing along some guidelines here: https://get.slack.help/hc/en-us/articles/202009646-Notify-a-channel-or-workspace
+
+Please review the guidelines and consider avoiding the use of `@here` or `@channel` when possible as this can be disruptive or annoying to other employees.
+Here are some examples of when using these keywords is *not appropriate*:
+* There exists leftover food in the kitchen.
+* There will exist food in the kitchen sometime in the future (this is not timely enough to warrant disrupting workflow).
+* You brought back some treats from your trip (thank you for your kindness but people can read scrollback for this).
+* You forgot something of low value in a conference room (again, people can read the scrollback and answer your question eventually).
+Thanks for reading over this and being considerate. I'll send out another friendly reminder every 30 days. Cheers!
+
+
 ## Env Vars
 
 ### Optional
