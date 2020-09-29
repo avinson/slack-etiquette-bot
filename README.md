@@ -2,7 +2,7 @@
 
 ## Overview
 
-Slack bot to reduce abuse of `@here`s and `@channel`s at your company. Edit `slackbot/settings.py` to adjust the messages that are sent. This may eventually be moved to environment variables.
+Slack bot to reduce abuse of `@here`s and `@channel`s via shaming. Edit `slackbot/settings.py` to adjust the messages that are sent. This may eventually be moved to environment variables.
 
 ### Initial Message
 
