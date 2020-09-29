@@ -6,7 +6,9 @@ Slack bot to reduce abuse of `@here`s and `@channel`s at your company. Edit `sla
 
 ### Initial Message
 
-The bot initially messages a user with the following, send reminders every day and finally begins first privately and then publicly (in the channel where the abuse occurs) shaming the user for abuse:
+The bot initially messages a user with the following, sends a reminder every 30 days and finally begins first privately and then publicly (in the channel where the abuse occurs) shaming the user for abuse.
+
+---
 
 :wave: I'm your friendly slack etiquette bot. Since you used `@here` or `@channel` in a channel with more than 20 members, I'm passing along some guidelines here: https://get.slack.help/hc/en-us/articles/202009646-Notify-a-channel-or-workspace
 
