@@ -31,10 +31,10 @@ Thanks for reading over this and being considerate. I'll send out another friend
 * `PRIVATE_NAG_THRESHOLD` -- Send the user a DM with a sterner warning if they use `@here/@channel` this many times per week (Defaults to `6`)
 * `PUBLIC_NAG_THRESHOLD` -- Begin publicly shaming the user in the channel they posted after this many abuses per week (Defaults to `10`)
 * `EBOT_MYSQL_ENABLED` -- Enable the mysql backend. Defaults to sqlite.
-* `EBOT_MYSQL_HOST` -- Mysql host endpoint
-* `EBOT_MYSQL_PASS`
-* `EBOT_MYSQL_PORT`
-* `EBOT_MYSQL_USER`
+* `EBOT_MYSQL_HOST` -- MySQL host endpoint
+* `EBOT_MYSQL_PASS` -- MySQL password
+* `EBOT_MYSQL_PORT` -- MySQL port
+* `EBOT_MYSQL_USER` -- MySQL username
 
 ### Required
 * `SLACK_API_TOKEN`
